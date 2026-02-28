@@ -132,7 +132,7 @@ function showSection(id){
 
 async function fetchData() {
   const topic = document.getElementById("topic").value;
-  const response = await fetch(`/api.js?topic=${topic}`);
+  const response = await fetch(`/api/youtube?topic=${topic}`);
   const data = await response.json();
 
   let html = "<div class='result-box'><h3>🔥 Viral Title:</h3>";
