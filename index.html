@@ -2,45 +2,168 @@
 <html>
 <head>
   <title>Bishan AI Studio PRO</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body {font-family: Arial; text-align:center; background:#0f0f0f; color:white;}
-    input {padding:10px; width:60%;}
-    button {padding:10px 20px; background:red; color:white; border:none;}
-    .box {background:#1c1c1c; margin:20px; padding:20px;}
-    p {margin:5px;}
+    body {
+      margin:0;
+      font-family: Arial;
+      background: linear-gradient(135deg,#0f0f0f,#1f1f2e);
+      color:white;
+      text-align:center;
+    }
+
+    h1 {
+      padding:20px;
+      font-size:28px;
+    }
+
+    .tabs {
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      margin-bottom:20px;
+    }
+
+    .tabs button {
+      padding:10px 15px;
+      border:none;
+      background:#222;
+      color:white;
+      cursor:pointer;
+      border-radius:8px;
+    }
+
+    .tabs button:hover {
+      background:red;
+    }
+
+    .section {
+      display:none;
+      padding:20px;
+    }
+
+    .active {
+      display:block;
+    }
+
+    input, textarea {
+      width:80%;
+      padding:10px;
+      margin:10px 0;
+      border-radius:8px;
+      border:none;
+    }
+
+    button.main-btn {
+      padding:10px 20px;
+      background:red;
+      border:none;
+      color:white;
+      border-radius:8px;
+      cursor:pointer;
+    }
+
+    .result-box {
+      background:#1c1c1c;
+      margin:15px auto;
+      padding:15px;
+      width:85%;
+      border-radius:10px;
+    }
+
+    a {
+      color:#00ffcc;
+      text-decoration:none;
+    }
+
+    .copy-btn {
+      background:#333;
+      margin-top:10px;
+      padding:5px 10px;
+      border:none;
+      color:white;
+      border-radius:5px;
+      cursor:pointer;
+    }
+
   </style>
 </head>
 <body>
 
 <h1>🔥 Bishan AI Studio PRO 🔥</h1>
 
-<div class="box">
-  <h2>📈 Real Trending + Viral Generator</h2>
-  <input id="topic" placeholder="Enter topic">
-  <button onclick="fetchData()">Generate</button>
-  <div id="results"></div>
+<div class="tabs">
+  <button onclick="showSection('seo')">SEO Tool</button>
+  <button onclick="showSection('prompt')">Prompt Builder</button>
+  <button onclick="showSection('tools')">AI Tools</button>
+</div>
+
+<!-- SEO SECTION -->
+<div id="seo" class="section active">
+  <h2>📈 Viral Title Generator</h2>
+  <input id="topic" placeholder="Enter video topic">
+  <button class="main-btn" onclick="fetchData()">Generate</button>
+  <div id="seoResults"></div>
+</div>
+
+<!-- PROMPT SECTION -->
+<div id="prompt" class="section">
+  <h2>🎬 AI Video Prompt Builder</h2>
+  <textarea id="idea" placeholder="Describe your video idea"></textarea>
+  <button class="main-btn" onclick="generatePrompt()">Generate Prompt</button>
+  <div id="promptResult"></div>
+</div>
+
+<!-- TOOLS SECTION -->
+<div id="tools" class="section">
+  <h2>🚀 Free AI Tools</h2>
+  <div class="result-box">
+    <p><a href="https://pika.art" target="_blank">Generate Video (Pika)</a></p>
+    <p><a href="https://runwayml.com" target="_blank">Generate Video (Runway)</a></p>
+    <p><a href="https://capcut.com" target="_blank">Upscale Video (CapCut)</a></p>
+  </div>
 </div>
 
 <script>
+function showSection(id){
+  document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
 async function fetchData() {
   const topic = document.getElementById("topic").value;
   const response = await fetch(`/api.js?topic=${topic}`);
   const data = await response.json();
 
-  let html = "<h3>🔥 Trending Titles:</h3>";
-  data.titles.forEach(title => {
-    html += "<p>" + title + "</p>";
-  });
+  let html = "<div class='result-box'><h3>🔥 Viral Title:</h3>";
+  html += "<p id='viralTitle'>" + data.viralTitle + "</p>";
+  html += "<button class='copy-btn' onclick='copyText(\"viralTitle\")'>Copy</button>";
+  html += "<h3>🏷 Hashtags:</h3>";
 
-  html += "<h3>🚀 Viral Optimized Title:</h3>";
-  html += "<p style='color:yellow'>" + data.viralTitle + "</p>";
-
-  html += "<h3>🏷 Smart Hashtags:</h3>";
   data.hashtags.forEach(tag => {
     html += "<p>" + tag + "</p>";
   });
 
-  document.getElementById("results").innerHTML = html;
+  html += "</div>";
+
+  document.getElementById("seoResults").innerHTML = html;
+}
+
+function generatePrompt(){
+  const idea = document.getElementById("idea").value;
+  const prompt = "Ultra realistic cinematic 4K video of " + idea +
+  ", detailed face, natural lighting, smooth camera movement.";
+
+  let html = "<div class='result-box'><p id='promptText'>" + prompt + "</p>";
+  html += "<button class='copy-btn' onclick='copyText(\"promptText\")'>Copy</button></div>";
+
+  document.getElementById("promptResult").innerHTML = html;
+}
+
+function copyText(id){
+  const text = document.getElementById(id).innerText;
+  navigator.clipboard.writeText(text);
+  alert("Copied!");
 }
 </script>
 
