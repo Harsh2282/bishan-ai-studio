@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bishan AI Studio</title>
+  <style>
+    body {font-family: Arial; text-align: center; background:#111; color:white;}
+    input, textarea {width:80%; padding:10px; margin:10px;}
+    button {padding:10px 20px; background:red; color:white; border:none;}
+    .box {background:#222; padding:20px; margin:20px;}
+  </style>
+</head>
+<body>
+
+<h1>🔥 Bishan AI Studio 🔥</h1>
+
+<div class="box">
+  <h2>🎯 Viral Title Generator</h2>
+  <input id="topic" placeholder="Enter your video topic">
+  <button onclick="generateTitle()">Generate</button>
+  <p id="result"></p>
+</div>
+
+<div class="box">
+  <h2>🎬 AI Video Prompt Maker</h2>
+  <textarea id="prompt" placeholder="Describe your video idea"></textarea>
+  <button onclick="generatePrompt()">Generate Prompt</button>
+  <p id="promptResult"></p>
+</div>
+
+<div class="box">
+  <h2>🚀 Free AI Tools</h2>
+  <p><a href="https://pika.art" target="_blank">Generate Video (Pika)</a></p>
+  <p><a href="https://runwayml.com" target="_blank">Generate Video (Runway)</a></p>
+  <p><a href="https://capcut.com" target="_blank">Upscale Video (CapCut)</a></p>
+</div>
+
+<script>
+function generateTitle(){
+  var topic = document.getElementById("topic").value;
+  document.getElementById("result").innerHTML =
+  "🔥 " + topic + " | Full Comedy Video 2026 | Must Watch 😂 #shorts #viral #funny";
+}
+
+function generatePrompt(){
+  var idea = document.getElementById("prompt").value;
+  document.getElementById("promptResult").innerHTML =
+  "Ultra realistic cinematic video of: " + idea +
+  ", 4K resolution, detailed face, natural lighting, smooth motion.";
+}
+</script>
+
+</body>
+</html>
