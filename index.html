@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Bishan AI Studio Pro</title>
+  <title>Bishan AI Studio PRO</title>
   <style>
     body {font-family: Arial; text-align:center; background:#0f0f0f; color:white;}
     input {padding:10px; width:60%;}
     button {padding:10px 20px; background:red; color:white; border:none;}
     .box {background:#1c1c1c; margin:20px; padding:20px;}
+    p {margin:5px;}
   </style>
 </head>
 <body>
@@ -14,21 +15,29 @@
 <h1>🔥 Bishan AI Studio PRO 🔥</h1>
 
 <div class="box">
-  <h2>📈 Real Trending Title Finder</h2>
+  <h2>📈 Real Trending + Viral Generator</h2>
   <input id="topic" placeholder="Enter topic">
-  <button onclick="fetchTitles()">Get Trending</button>
+  <button onclick="fetchData()">Generate</button>
   <div id="results"></div>
 </div>
 
 <script>
-async function fetchTitles() {
+async function fetchData() {
   const topic = document.getElementById("topic").value;
   const response = await fetch(`/api.js?topic=${topic}`);
   const data = await response.json();
 
-  let html = "<h3>Trending Titles:</h3>";
+  let html = "<h3>🔥 Trending Titles:</h3>";
   data.titles.forEach(title => {
-    html += "<p>🔥 " + title + "</p>";
+    html += "<p>" + title + "</p>";
+  });
+
+  html += "<h3>🚀 Viral Optimized Title:</h3>";
+  html += "<p style='color:yellow'>" + data.viralTitle + "</p>";
+
+  html += "<h3>🏷 Smart Hashtags:</h3>";
+  data.hashtags.forEach(tag => {
+    html += "<p>" + tag + "</p>";
   });
 
   document.getElementById("results").innerHTML = html;
