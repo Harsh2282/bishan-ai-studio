@@ -1,51 +1,37 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Bishan AI Studio</title>
+  <title>Bishan AI Studio Pro</title>
   <style>
-    body {font-family: Arial; text-align: center; background:#111; color:white;}
-    input, textarea {width:80%; padding:10px; margin:10px;}
+    body {font-family: Arial; text-align:center; background:#0f0f0f; color:white;}
+    input {padding:10px; width:60%;}
     button {padding:10px 20px; background:red; color:white; border:none;}
-    .box {background:#222; padding:20px; margin:20px;}
+    .box {background:#1c1c1c; margin:20px; padding:20px;}
   </style>
 </head>
 <body>
 
-<h1>🔥 Bishan AI Studio 🔥</h1>
+<h1>🔥 Bishan AI Studio PRO 🔥</h1>
 
 <div class="box">
-  <h2>🎯 Viral Title Generator</h2>
-  <input id="topic" placeholder="Enter your video topic">
-  <button onclick="generateTitle()">Generate</button>
-  <p id="result"></p>
-</div>
-
-<div class="box">
-  <h2>🎬 AI Video Prompt Maker</h2>
-  <textarea id="prompt" placeholder="Describe your video idea"></textarea>
-  <button onclick="generatePrompt()">Generate Prompt</button>
-  <p id="promptResult"></p>
-</div>
-
-<div class="box">
-  <h2>🚀 Free AI Tools</h2>
-  <p><a href="https://pika.art" target="_blank">Generate Video (Pika)</a></p>
-  <p><a href="https://runwayml.com" target="_blank">Generate Video (Runway)</a></p>
-  <p><a href="https://capcut.com" target="_blank">Upscale Video (CapCut)</a></p>
+  <h2>📈 Real Trending Title Finder</h2>
+  <input id="topic" placeholder="Enter topic">
+  <button onclick="fetchTitles()">Get Trending</button>
+  <div id="results"></div>
 </div>
 
 <script>
-function generateTitle(){
-  var topic = document.getElementById("topic").value;
-  document.getElementById("result").innerHTML =
-  "🔥 " + topic + " | Full Comedy Video 2026 | Must Watch 😂 #shorts #viral #funny";
-}
+async function fetchTitles() {
+  const topic = document.getElementById("topic").value;
+  const response = await fetch(`/api.js?topic=${topic}`);
+  const data = await response.json();
 
-function generatePrompt(){
-  var idea = document.getElementById("prompt").value;
-  document.getElementById("promptResult").innerHTML =
-  "Ultra realistic cinematic video of: " + idea +
-  ", 4K resolution, detailed face, natural lighting, smooth motion.";
+  let html = "<h3>Trending Titles:</h3>";
+  data.titles.forEach(title => {
+    html += "<p>🔥 " + title + "</p>";
+  });
+
+  document.getElementById("results").innerHTML = html;
 }
 </script>
 
